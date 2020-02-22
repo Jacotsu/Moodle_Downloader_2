@@ -1,6 +1,7 @@
 import os
+import re
 import html
-
+from sys import platform
 
 class StringTools:
 
@@ -17,6 +18,8 @@ class StringTools:
         name = html.unescape(name)
         # Forward and Backward Slashes are not good for filenames
         name = name.replace(os.path.sep, '|')
+        if platform == "win32":
+            re.sub(ur'[\W_\\//]+', u'', name, flags=re.UNICODE)
         return name
 
     @staticmethod
